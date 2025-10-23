@@ -29,6 +29,7 @@ function createTodoNode(text , index){
     textSpan.style.margin = '5px 5px';
     if(todos.completed){
         textSpan.style.textDecoration = 'line-through';
+    }
 
         // adding event listener to edit todos.
         document.addEventListener("dblclick" , ()=>{
@@ -52,7 +53,6 @@ function createTodoNode(text , index){
         li.append(textSpan);
         li.append(delBtn);
         return li;
-    }
 }
 
 
