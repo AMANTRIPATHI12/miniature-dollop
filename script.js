@@ -35,7 +35,7 @@ function createTodoNode(text , index){
         document.addEventListener("dblclick" , ()=>{
             const newtext = prompt("Edit todo" , todos.text);
             if(newtext !== null){
-                todos.text = newtext.value.trim();
+                todos.text = newtext.trim();
                 textSpan.textContent = todos.text;
                 savedTodo();
             }
@@ -67,7 +67,7 @@ function render(){
 }
 
 function addTodo(){
-    const text = input.ariaValueMax.trim();
+    const text = input.value.trim();
     if(!text){
         return;
     }
