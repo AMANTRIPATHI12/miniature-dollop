@@ -3,80 +3,77 @@ const input = document.getElementById('todo-input');
 const addBtn = document.getElementById('Add-todo');
 const List = document.getElementById('todo-list');
 
-// Saving todos in local storage;
+// Saving todos in local storage
 const saved = localStorage.getItem('todos');
-const todos = saved?JSON.parse(saved):[];
+const todos = saved ? JSON.parse(saved) : [];
 
-// Fuction to save todos in local storage
-function savedTodo(){
+// Function to save todos in local storage
+function savedTodo() {
     localStorage.setItem('todos', JSON.stringify(todos));
 }
 
-
-function createTodoNode(text , index){
+// Function to create a single todo node
+function createTodoNode(todo, index) {
     const li = document.createElement('li');
 
-    // added checkbox feature to check competed.
     const checkbox = document.createElement('input');
     checkbox.type = "checkbox";
-    checkbox.checked = !!todos.completed;
-    checkbox.addEventListener("change" , ()=> {
-        todos.completed = checkbox.checked;
+    checkbox.checked = !!todo.completed;
+    checkbox.addEventListener("change", () => {
+        todo.completed = checkbox.checked;
         savedTodo();
-    })
+        render();
+    });
+
     const textSpan = document.createElement('span');
-    textSpan.textContent = todos.text;
+    textSpan.textContent = todo.text;
     textSpan.style.margin = '5px 5px';
-    if(todos.completed){
+    if (todo.completed) {
         textSpan.style.textDecoration = 'line-through';
     }
 
-        // adding event listener to edit todos.
-        document.addEventListener("dblclick" , ()=>{
-            const newtext = prompt("Edit todo" , todos.text);
-            if(newtext !== null){
-                todos.text = newtext.trim();
-                textSpan.textContent = todos.text;
-                savedTodo();
-            }
-        })
-
-        // delete a todo;
-        const delBtn = document.createElement('button');
-        delBtn.textContent = "Delete";
-        delBtn.addEventListener('click',()=>{
-            todos.splice(index , 1);
-            render();
+    // Edit todo on double-click
+    textSpan.addEventListener("dblclick", () => {
+        const newText = prompt("Edit todo", todo.text);
+        if (newText !== null) {
+            todo.text = newText.trim();
             savedTodo();
-        })
-        li.append(checkbox);
-        li.append(textSpan);
-        li.append(delBtn);
-        return li;
+            render();
+        }
+    });
+
+    // Delete todo
+    const delBtn = document.createElement('button');
+    delBtn.textContent = "Delete";
+    delBtn.addEventListener('click', () => {
+        todos.splice(index, 1);
+        savedTodo();
+        render();
+    });
+
+    li.append(checkbox, textSpan, delBtn);
+    return li;
 }
 
-
-// fuction to render todos in your html document.
-function render(){
+// Function to render todos in your html document.
+function render() {
     List.innerHTML = "";
-
-    todos.forEach((todo , index) => {
-        const node = createTodoNode(todo , index);
+    todos.forEach((todo, index) => {
+        const node = createTodoNode(todo, index);
         List.append(node);
     });
 }
 
-function addTodo(){
+// Function to add a new todo
+function addTodo() {
     const text = input.value.trim();
-    if(!text){
-        return;
-    }
+    if (!text) return;
 
-    todos.push({text,completed : false});
+    todos.push({ text, completed: false });
     input.value = "";
-    render();
     savedTodo();
+    render();
 }
 
-addBtn.addEventListener("click" , addTodo);
+addBtn.addEventListener("click", addTodo);
 render();
