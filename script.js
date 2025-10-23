@@ -35,7 +35,7 @@ function createTodoNode(text , index){
         document.addEventListener("dblclick" , ()=>{
             const newtext = prompt("Edit todo" , todos.text);
             if(newtext !== null){
-                todos.text = newtext.trim();
+                todos.text = newtext.value.trim();
                 textSpan.textContent = todos.text;
                 savedTodo();
             }
