@@ -1,7 +1,7 @@
 // Getting elements from the html document to target.
-const input = document.getElementById();
-const addBtn = document.getElementById();
-const List = document.getElementById();
+const input = document.getElementById('todo-input');
+const addBtn = document.getElementById('Add-todo');
+const List = document.getElementById('todo-list');
 
 // Saving todos in local storage;
 const saved = localStorage.getItem('todos');
