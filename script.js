@@ -18,7 +18,7 @@ function createTodoNode(text , index){
 
     // added checkbox feature to check competed.
     const checkbox = document.createElement('input');
-    checkbox.type = checkbox;
+    checkbox.type = "checkbox";
     checkbox.checked = !!todos.completed;
     checkbox.addEventListener("change" , ()=> {
         todos.completed = checkbox.checked;
@@ -60,8 +60,8 @@ function createTodoNode(text , index){
 function render(){
     List.innerHTML = "";
 
-    todos.forEach((todos , index) => {
-        const node = createTodoNode(todos , index);
+    todos.forEach((todo , index) => {
+        const node = createTodoNode(todo , index);
         List.append(node);
     });
 }
